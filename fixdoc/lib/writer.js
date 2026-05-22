@@ -22,12 +22,16 @@ function dateOnly(iso) {
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 
 function buildSlug(ctx, info) {
-  const base = info.scope ? `${info.scope}-${ctx.subject}` : ctx.subject;
+  // Prefer the cleaned subject from trigger.classify (info.subject); fall back to
+  // the raw first commit line. info.subject excludes "type(scope):" noise.
+  const subj = (info && info.subject) || ctx.subject;
+  const base = info && info.scope ? `${info.scope}-${subj}` : subj;
   return slugify(base);
 }
 
 function draftFilename(ctx, info) {
-  return `${dateOnly(ctx.date)}-${buildSlug(ctx, info)}.md`;
+  // Short SHA suffix guarantees uniqueness when subjects collide.
+  return `${dateOnly(ctx.date)}-${buildSlug(ctx, info)}-${ctx.shortSha}.md`;
 }
 
 function writeDraft(repoRoot, cfg, ctx, info, content) {
