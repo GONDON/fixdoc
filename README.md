@@ -18,18 +18,31 @@ Phase 1 MVP — see `docs/PRD.md` for the full spec.
 
 ## Install
 
+### 1. Install fixdoc itself (once per machine)
+
+From inside this repo:
+
 ```bash
-# 1. Activate hooks (per clone)
-git config core.hooksPath .githooks
-
-# 2. Make the CLI globally usable
 npm link            # exposes `fixdoc` on PATH
-# or invoke directly: node fixdoc/bin/fixdoc.js ...
+# or use the installer: FIXDOC_SRC=$PWD bash install.sh
+# or invoke directly:    node fixdoc/bin/fixdoc.js ...
+```
 
-# 3. Configure
-cp fixdoc/config.example.yaml fixdoc/config.yaml
+Verify: `fixdoc help` should print the usage.
+
+### 2. Enable fixdoc in another project
+
+In any git project where you want fixdoc:
+
+```bash
+cd path/to/your-project
+fixdoc init
 # edit fixdoc/config.yaml — set output.obsidian_vault to your vault path
 ```
+
+`fixdoc init` writes the post-commit hook, scaffolds `fixdoc/{config.yaml,prompt.md,template.md,knowledge/,queue/}`, appends the right entries to `.gitignore`, and runs `git config core.hooksPath .githooks`. Re-run with `--force` to overwrite (your `config.yaml` is always kept).
+
+> Don't `cp fixdoc/config.example.yaml ...` manually — that path only exists inside the fixdoc repo, not in target projects. Use `fixdoc init`.
 
 ## Workflow
 
@@ -50,6 +63,7 @@ git add fixdoc/knowledge && git commit -m "docs: fixdoc case auth token race"
 
 | Command | Description |
 |---------|-------------|
+| `fixdoc init` | Scaffold fixdoc files + hook in the current git project |
 | `fixdoc generate` | Draft the next pending queue entry |
 | `fixdoc generate --sha <sha>` | Draft a specific commit |
 | `fixdoc generate --all` | Draft every pending entry |

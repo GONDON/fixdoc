@@ -512,7 +512,6 @@ llm:
 | **Phase 1 MVP** | CLI + post-commit + Claude CLI + draft review + 双写 | **当前** |
 | Phase 1.5 | prepare-commit-msg 模板 + `git fixdoc` alias | 待定 |
 | Phase 2 | daemon 自动消费 queue + domain 分类 + 历史关联 | 待定 |
-| Phase 2+ | Cursor / Claude Code IDE 薄适配 | 明确不做于 Phase 1 |
 | Phase 3 | Obsidian Git 联动 + 试点指标 | 待定 |
 
 ---
