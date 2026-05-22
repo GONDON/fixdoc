@@ -45,6 +45,7 @@ Usage:
   fixdoc generate [--sha <sha>] [--all]   Generate draft(s) from queue
   fixdoc confirm  [<draft.md>|--latest]   Archive a reviewed draft to cases (+ Obsidian)
   fixdoc status                           Show queue and draft state
+  fixdoc clear --queue|--drafts|--all     Clean queue and/or drafts (never touches cases)
   fixdoc help                             Show this message
 
 Config: fixdoc/config.yaml (copy from fixdoc/config.example.yaml)
@@ -271,6 +272,11 @@ function main() {
     if (cmd === 'generate') return cmdGenerate(args);
     if (cmd === 'confirm') return cmdConfirm(args);
     if (cmd === 'status') return cmdStatus();
+    if (cmd === 'clear') {
+      const cfg = loadConfig(findRepoRoot());
+      cfg._repoRoot = cfg._repoRoot || findRepoRoot();
+      return require('../lib/clear.js').clear(args, cfg);
+    }
     process.stderr.write(`Unknown command: ${cmd}\n\n`);
     printUsage();
     return 1;
@@ -280,4 +286,7 @@ function main() {
   }
 }
 
-process.exit(main());
+Promise.resolve(main()).then(code => process.exit(code || 0), err => {
+  process.stderr.write(`[fixdoc] error: ${err.message}\n`);
+  process.exit(1);
+});
