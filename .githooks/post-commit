@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # fixdoc post-commit hook
-# Installation: git config core.hooksPath .githooks
-# fail-open: any error must not block the commit.
+# Activated by `fixdoc init` (sets core.hooksPath = .githooks).
+# fail-open: any error must NOT block the commit.
 
 set +e
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
-[ -z "$REPO_ROOT" ] && exit 0
-[ ! -f "$REPO_ROOT/fixdoc/lib/post-commit-runner.js" ] && exit 0
-node "$REPO_ROOT/fixdoc/lib/post-commit-runner.js" || true
+
+# Resolve `fixdoc` from PATH; fall back to FIXDOC_BIN env override.
+FIXDOC_CMD="${FIXDOC_BIN:-fixdoc}"
+if ! command -v "$FIXDOC_CMD" >/dev/null 2>&1; then
+  echo "[fixdoc] hook installed but \`$FIXDOC_CMD\` not found on PATH; skipping (commit not blocked)." >&2
+  exit 0
+fi
+
+"$FIXDOC_CMD" _hook 2>&1 || true
 exit 0

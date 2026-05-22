@@ -41,13 +41,14 @@ function printUsage() {
   process.stdout.write(`fixdoc — generate postmortem docs from fixdoc: commits
 
 Usage:
+  fixdoc init [--force]                   Scaffold fixdoc/ + .githooks/ in current project
   fixdoc generate [--sha <sha>] [--all]   Generate draft(s) from queue
   fixdoc confirm  [<draft.md>|--latest]   Archive a reviewed draft to cases (+ Obsidian)
   fixdoc status                           Show queue and draft state
   fixdoc help                             Show this message
 
 Config: fixdoc/config.yaml (copy from fixdoc/config.example.yaml)
-Install hook: git config core.hooksPath .githooks
+After init, hooks are activated automatically via core.hooksPath = .githooks
 `);
 }
 
@@ -265,6 +266,8 @@ function main() {
     return 0;
   }
   try {
+    if (cmd === 'init') return require('../lib/init.js').init(args);
+    if (cmd === '_hook') return require('../lib/hook.js').runHook();
     if (cmd === 'generate') return cmdGenerate(args);
     if (cmd === 'confirm') return cmdConfirm(args);
     if (cmd === 'status') return cmdStatus();
