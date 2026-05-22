@@ -1,0 +1,15 @@
+{
+  "name": "fixdoc",
+  "version": "0.1.0",
+  "description": "Vendor-agnostic Git workflow tool: generate postmortem docs from fixdoc: commits via Claude CLI",
+  "bin": {
+    "fixdoc": "fixdoc/bin/fixdoc.js"
+  },
+  "scripts": {
+    "fixdoc": "node fixdoc/bin/fixdoc.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

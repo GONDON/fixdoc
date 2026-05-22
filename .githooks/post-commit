@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# fixdoc post-commit hook
+# Installation: git config core.hooksPath .githooks
+# fail-open: any error must not block the commit.
+
+set +e
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+[ -z "$REPO_ROOT" ] && exit 0
+[ ! -f "$REPO_ROOT/fixdoc/lib/post-commit-runner.js" ] && exit 0
+node "$REPO_ROOT/fixdoc/lib/post-commit-runner.js" || true
+exit 0

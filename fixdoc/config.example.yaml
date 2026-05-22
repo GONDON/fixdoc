@@ -1,0 +1,25 @@
+llm:
+  provider: claude-cli           # Phase 1 only supports claude-cli
+  command: claude                # binary path (override if not on PATH)
+  args: ["-p"]                   # non-interactive print mode
+  timeout_ms: 120000
+
+output:
+  project_dir: fixdoc/knowledge/cases
+  draft_dir: fixdoc/knowledge/draft
+  index_file: fixdoc/knowledge/INDEX.md
+  # Absolute path to your Obsidian vault. Leave "" to skip Obsidian write.
+  obsidian_vault: ""
+  obsidian_subdir: Knowledge/Postmortems
+  require_draft_review: true
+
+diff:
+  max_lines: 500
+  context_lines: 3
+
+trigger:
+  types: [fixdoc, hotfix]
+  tags: [autodoc]
+  severity_tags:
+    urgent: autodoc-urgent
+    minor: autodoc-minor

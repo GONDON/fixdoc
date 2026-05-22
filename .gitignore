@@ -1,0 +1,7 @@
+node_modules/
+fixdoc/queue/pending.jsonl
+fixdoc/config.yaml
+fixdoc/knowledge/draft/
+data/cache/
+logs/
+.DS_Store
