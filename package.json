@@ -11,5 +11,37 @@
   "engines": {
     "node": ">=18"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GONDON/fixdoc.git"
+  },
+  "homepage": "https://github.com/GONDON/fixdoc#readme",
+  "bugs": {
+    "url": "https://github.com/GONDON/fixdoc/issues"
+  },
+  "keywords": [
+    "git",
+    "git-hooks",
+    "postmortem",
+    "documentation",
+    "changelog",
+    "claude",
+    "llm",
+    "workflow",
+    "obsidian"
+  ],
+  "files": [
+    "fixdoc/bin/",
+    "fixdoc/lib/",
+    "fixdoc/config.example.yaml",
+    "fixdoc/prompt.md",
+    "fixdoc/template.md",
+    ".githooks/post-commit",
+    ".githooks/README.md",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ]
 }

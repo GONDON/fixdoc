@@ -1,0 +1,19 @@
+# Belt-and-suspenders: package.json `files` already whitelists,
+# but make sure these never sneak in.
+fixdoc/queue/
+fixdoc/config.yaml
+fixdoc/knowledge/draft/
+fixdoc/knowledge/cases/
+fixdoc/knowledge/INDEX.md
+data/
+logs/
+.claude/
+.git/
+.githooks/pre-*
+.githooks/commit-msg
+docs/
+scripts/
+install.sh
+uninstall.sh
+*.log
+.DS_Store

@@ -1,5 +1,7 @@
 # Fixdoc
 
+**English** | [中文](./README.zh.md)
+
 Vendor-agnostic Git workflow tool: when you commit with `fixdoc:` (or
 `hotfix:` / `#autodoc`), Fixdoc enqueues the commit; running `fixdoc generate`
 asks Claude CLI to draft a structured postmortem from the diff; after manual
@@ -20,15 +22,22 @@ Phase 1 MVP — see `docs/PRD.md` for the full spec.
 
 ### 1. Install fixdoc itself (once per machine)
 
-From inside this repo:
-
 ```bash
-npm link            # exposes `fixdoc` on PATH
-# or use the installer: FIXDOC_SRC=$PWD bash install.sh
-# or invoke directly:    node fixdoc/bin/fixdoc.js ...
+npm install -g fixdoc
 ```
 
 Verify: `fixdoc help` should print the usage.
+
+<details>
+<summary>Alternatives (from source)</summary>
+
+```bash
+# inside a clone of this repo
+npm link            # exposes `fixdoc` on PATH
+# or use the installer: FIXDOC_SRC=$PWD bash install.sh
+# or invoke directly:   node fixdoc/bin/fixdoc.js ...
+```
+</details>
 
 ### 2. Enable fixdoc in another project
 
